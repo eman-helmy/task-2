@@ -1,1 +1,29 @@
+on:
+  push:
+    branches:
+      - eman
 
+
+
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+
+    steps:
+      
+      - uses: actions/checkout@v3
+      
+      - name: "After"
+        run: ls
+
+      - name: "Building Image"
+        run: docker build -t emanhelmy/newimage .
+
+      - name: "Loging to Docker"
+        run: docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: "Pushing to Docker Hub"
+        run: docker push emanhelmy/newimage
